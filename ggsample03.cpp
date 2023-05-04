@@ -94,7 +94,20 @@ static void frustum(GLfloat* m, float left, float right, float bottom, float top
 static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float zFar)
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
-  loadIdentity(m);
+  //loadIdentity(m);
+  const GLfloat dz(zFar - zNear);
+  if (dz != 0.0f)
+  {
+    m[5] = 1.0f / tan(fovy * 0.5f);
+    m[0] = m[5] / aspect;
+    m[10] = -(zFar + zNear) / dz;
+    m[11] = -1.0f;
+    m[14] = -2.0f * zFar * zNear / dz;
+
+    m[1] = m[2] = m[3] = m[4] =
+    m[6] = m[7] = m[8] = m[9] =
+    m[12] = m[13] = m[15] = 0;
+  }
 }
 
 //
