@@ -130,15 +130,34 @@ GLfloat* loadTranslate(float x, float y, float z, GLfloat* m)
 //
 //   m: ビュー変換行列を格納する配列
 //   ex, ey, ez: 視点の位置
-//   tx, ty, tz: 目標点の位置
+//   gx, gy, gz: 目標点の位置
 //   ux, uy, uz: 上方向のベクトル
 //
-static void lookat(GLfloat* m, float ex, float ey, float ez, float tx, float ty, float tz, float ux, float uy, float uz)
+static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy, float gz, float ux, float uy, float uz)
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
   //loadIdentity(m);
   GLfloat tv[16];
-  //loadTranslate
+  loadTranslate(-ex, -ey, -ez, tv);
+
+  //t軸 = e - g
+  const GLfloat tx(ex - gx);
+  const GLfloat ty(ey - gy);
+  const GLfloat tz(ez - ey);
+
+  //r軸 = u * t軸
+  const GLfloat rx(uy * tz - uz * ty);
+  const GLfloat ry(uz * tx - ux * tz);
+  const GLfloat rz(ux * ty - uy * tx);
+
+  //s軸 = t軸 * r軸
+  const GLfloat rx(ty * rz - tz * ry);
+  const GLfloat ry(tz * rx - tx * rz);
+  const GLfloat rz(tx * ry - ty * rx);
+
+
+
+
 }
 
 //
