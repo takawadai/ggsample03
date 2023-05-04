@@ -110,6 +110,21 @@ static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float
   }
 }
 
+GLfloat* loadTranslate(float x, float y, float z, GLfloat* m)
+{
+  m[12] = x;
+  m[13] = y;
+  m[14] = z;
+
+  m[1] = m[2] = m[3] =
+  m[4] = m[6] = m[7] =
+  m[8] = m[9] = m[11] = 0.0f;
+
+  m[0] = m[5] = m[10] = m[15] = 1.0f;
+
+  return m;
+}
+
 //
 // ビュー変換行列を求める
 //
@@ -121,7 +136,9 @@ static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float
 static void lookat(GLfloat* m, float ex, float ey, float ez, float tx, float ty, float tz, float ux, float uy, float uz)
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
-  loadIdentity(m);
+  //loadIdentity(m);
+  GLfloat tv[16];
+  //loadTranslate
 }
 
 //
