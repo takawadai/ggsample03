@@ -170,10 +170,23 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
 
   //s軸を正規化して配列変数に格納
   const GLfloat s(sqrt(s2));
-  
+  rv[1] = sx / s;
+  rv[5] = sy / s;
+  rv[9] = sz / s;
+
+  //t軸を正規化して配列変数に格納
+  const GLfloat t(sqrt(tx * tx + ty * ty + tz * tz));
+  rv[2] = tx / t;
+  rv[6] = ty / t;
+  rv[10] = tz / t;
+
+  // 残りの成分
+  rv[3] = rv[7] = rv[11] = rv[12] = rv[13] = rv[14] = 0.0f;
+  rv[15] = 1.0f;
 
 
-
+  //視点の平行移動の変換行列に視線の変換行列を乗じる
+  return multiply(rv, tv, m);
 
 }
 
