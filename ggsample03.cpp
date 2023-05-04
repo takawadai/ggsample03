@@ -151,9 +151,26 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
   const GLfloat rz(ux * ty - uy * tx);
 
   //s軸 = t軸 * r軸
-  const GLfloat rx(ty * rz - tz * ry);
-  const GLfloat ry(tz * rx - tx * rz);
-  const GLfloat rz(tx * ry - ty * rx);
+  const GLfloat sx(ty * rz - tz * ry);
+  const GLfloat sy(tz * rx - tx * rz);
+  const GLfloat sz(tx * ry - ty * rx);
+
+  //s軸の長さチェック
+  const GLfloat s2(sx * sx + sy * sy + sz * sz);
+  if (s2 == 0.0f) return;
+
+  //回転の変換行列
+  GLfloat rv[16];
+
+  //r軸を正規化して配列変数に格納
+  const GLfloat r(sqrt(rx * rx + ry * ry + rz * rz));
+  rv[0] = rx / r;
+  rv[4] = ry / r;
+  rv[8] = rz / r;
+
+  //s軸を正規化して配列変数に格納
+  const GLfloat s(sqrt(s2));
+  
 
 
 
