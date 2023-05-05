@@ -143,7 +143,7 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
   //t軸 = e - g
   const GLfloat tx(ex - gx);
   const GLfloat ty(ey - gy);
-  const GLfloat tz(ez - ey);
+  const GLfloat tz(ez - gz);
 
   //r軸 = u * t軸
   const GLfloat rx(uy * tz - uz * ty);
@@ -186,7 +186,8 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
 
 
   //視点の平行移動の変換行列に視線の変換行列を乗じる
-  return multiply(m, rv, tv);
+  multiply(m, rv, tv);
+  return;
 
 }
 
