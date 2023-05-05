@@ -270,6 +270,8 @@ int GgApp::main(int argc, const char* const* argv)
     // uniform 変数 mc に変換行列 mc を設定する
     // 【宿題】ここを解答してください（uniform 変数 mc のインデックスは変数 mcLoc に入っています）
 
+    glUniform1fv(mcLoc, 16, mc);
+   
     // 描画に使う頂点配列オブジェクトの指定
     glBindVertexArray(vao);
 
