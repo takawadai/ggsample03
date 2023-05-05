@@ -122,8 +122,6 @@ static void loadTranslate(float x, float y, float z, GLfloat* m)
   m[8] = m[9] = m[11] = 0.0f;
 
   m[0] = m[5] = m[10] = m[15] = 1.0f;
-  return;
-  //return m;
 }
 
 //
@@ -188,8 +186,6 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
 
   //視点の平行移動の変換行列に視線の変換行列を乗じる
   multiply(m, rv, tv);
-  return;
-
 }
 
 //
