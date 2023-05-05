@@ -94,7 +94,7 @@ static void frustum(GLfloat* m, float left, float right, float bottom, float top
 static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float zFar)
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
-  //loadIdentity(m);
+  //参照：ゲームグラフィックス特論　第3回　講義ノート　p.133-134
   const GLfloat dz(zFar - zNear);
   if (dz != 0.0f)
   {
@@ -112,6 +112,7 @@ static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float
 
 static void loadTranslate(float x, float y, float z, GLfloat* m)
 {
+  //参照：ゲームグラフィックス特論　第3回　講義ノート　p.107-108
   m[12] = x;
   m[13] = y;
   m[14] = z;
@@ -136,7 +137,7 @@ static void loadTranslate(float x, float y, float z, GLfloat* m)
 static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy, float gz, float ux, float uy, float uz)
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
-  //loadIdentity(m);
+  //参照：ゲームグラフィックス特論　第3回　講義ノート　p.123-124
   GLfloat tv[16];
   loadTranslate(-ex, -ey, -ez, tv);
 
@@ -271,7 +272,7 @@ int GgApp::main(int argc, const char* const* argv)
     // uniform 変数 mc に変換行列 mc を設定する
     // 【宿題】ここを解答してください（uniform 変数 mc のインデックスは変数 mcLoc に入っています）
 
-    //「床井研究室 - 第５回 座標変換」参照
+    //参照　「床井研究室 - 第５回 座標変換」https://marina.sys.wakayama-u.ac.jp/~tokoi/?date=20090829
     glUniformMatrix4fv(mcLoc, 1, GL_FALSE, mc);
     
     //glUniform1fv(mcLoc, 16, mc);
