@@ -95,7 +95,7 @@ static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
   //参照：ゲームグラフィックス特論　第3回　講義ノート　p.133-134
-  float f = 1 / tanf(fovy / 2.0);
+  float f = 1.0 / tanf(fovy / 2.0);
   float distance = zFar - zNear;
 
   if (distance != 0.0 && aspect != 0.0)
