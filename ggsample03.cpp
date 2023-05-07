@@ -124,7 +124,6 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
   //参照：ゲームグラフィックス特論　第3回　講義ノート　p.121-124
-  //loadIdentity(m);
 
   //まず，変換行列Tvを作る．
   GLfloat Tv[16];
