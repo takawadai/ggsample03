@@ -95,34 +95,10 @@ static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
   //参照：ゲームグラフィックス特論　第3回　講義ノート　p.133-134
-  const GLfloat dz(zFar - zNear);
-  if (dz != 0.0f)
-  {
-    m[5] = 1.0f / tan(fovy * 0.5f);
-    m[0] = m[5] / aspect;
-    m[10] = -(zFar + zNear) / dz;
-    m[11] = -1.0f;
-    m[14] = -2.0f * zFar * zNear / dz;
-
-    m[1] = m[2] = m[3] = m[4] =
-    m[6] = m[7] = m[8] = m[9] =
-    m[12] = m[13] = m[15] = 0;
-  }
+  
 }
 
-static void loadTranslate(float x, float y, float z, GLfloat* m)
-{
-  //参照：ゲームグラフィックス特論　第3回　講義ノート　p.107-108
-  m[12] = x;
-  m[13] = y;
-  m[14] = z;
 
-  m[1] = m[2] = m[3] =
-  m[4] = m[6] = m[7] =
-  m[8] = m[9] = m[11] = 0.0f;
-
-  m[0] = m[5] = m[10] = m[15] = 1.0f;
-}
 
 //
 // ビュー変換行列を求める
@@ -136,56 +112,7 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
   //参照：ゲームグラフィックス特論　第3回　講義ノート　p.123-124
-  GLfloat tv[16];
-  loadTranslate(-ex, -ey, -ez, tv);
-
-  //t軸 = e - g
-  const GLfloat tx(ex - gx);
-  const GLfloat ty(ey - gy);
-  const GLfloat tz(ez - gz);
-
-  //r軸 = u * t軸
-  const GLfloat rx(uy * tz - uz * ty);
-  const GLfloat ry(uz * tx - ux * tz);
-  const GLfloat rz(ux * ty - uy * tx);
-
-  //s軸 = t軸 * r軸
-  const GLfloat sx(ty * rz - tz * ry);
-  const GLfloat sy(tz * rx - tx * rz);
-  const GLfloat sz(tx * ry - ty * rx);
-
-  //s軸の長さチェック
-  const GLfloat s2(sx * sx + sy * sy + sz * sz);
-  if (s2 == 0.0f) return;
-
-  //回転の変換行列
-  GLfloat rv[16];
-
-  //r軸を正規化して配列変数に格納
-  const GLfloat r(sqrt(rx * rx + ry * ry + rz * rz));
-  rv[0] = rx / r;
-  rv[4] = ry / r;
-  rv[8] = rz / r;
-
-  //s軸を正規化して配列変数に格納
-  const GLfloat s(sqrt(s2));
-  rv[1] = sx / s;
-  rv[5] = sy / s;
-  rv[9] = sz / s;
-
-  //t軸を正規化して配列変数に格納
-  const GLfloat t(sqrt(tx * tx + ty * ty + tz * tz));
-  rv[2] = tx / t;
-  rv[6] = ty / t;
-  rv[10] = tz / t;
-
-  // 残りの成分
-  rv[3] = rv[7] = rv[11] = rv[12] = rv[13] = rv[14] = 0.0f;
-  rv[15] = 1.0f;
-
-
-  //視点の平行移動の変換行列に視線の変換行列を乗じる
-  multiply(m, rv, tv);
+ 
 }
 
 //
