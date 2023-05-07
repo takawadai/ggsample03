@@ -123,8 +123,42 @@ static void perspective(GLfloat* m, float fovy, float aspect, float zNear, float
 static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy, float gz, float ux, float uy, float uz)
 {
   // 【宿題】ここを解答してください（loadIdentity() を置き換えてください）
-  //参照：ゲームグラフィックス特論　第3回　講義ノート　p.123-124
-  loadIdentity(m);
+  //参照：ゲームグラフィックス特論　第3回　講義ノート　p.121-124
+  //loadIdentity(m);
+
+  //まず，変換行列Tvを作る．
+  GLfloat Tv[16];
+  Tv[12] = -ex;
+  Tv[13] = -ey;
+  Tv[14] = -ez;
+
+  Tv[0] = Tv[5] = Tv[10] = Tv[15] = 1;
+
+  Tv[1] = Tv[2] = Tv[3] = Tv[4] =
+  Tv[6] = Tv[7] = Tv[8] = Tv[9] = Tv[11] = 0;
+
+  //次に，変換行列Rvを作る．
+  GLfloat Rv[16];
+
+  //視点座標系の軸r，s，t
+  GLfloat tx = ex - gx;
+  GLfloat ty = ey - gy;
+  GLfloat tz = ez - gz;
+
+  GLfloat rx = uy * tz - uz * ty;
+  GLfloat ry = uz * tx - ux * tz;
+  GLfloat rz = ux * ty - uy * tx;
+
+  GLfloat sx = uy * tz - uz * ty;
+  GLfloat sy = uz * tx - ux * tz;
+  GLfloat sz = ux * ty - uy * tx;
+
+  //それぞれのベクトルの長さを求める，ベクトルの長さが0ならreturn
+  GLfloat sLength = sqrtf(sx * sx + sy * sy + sz * sz);
+  if (sLength != 0)
+  {
+    return;
+  }
 }
 
 //
