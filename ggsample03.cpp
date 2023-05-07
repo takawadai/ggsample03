@@ -149,16 +149,40 @@ static void lookat(GLfloat* m, float ex, float ey, float ez, float gx, float gy,
   GLfloat ry = uz * tx - ux * tz;
   GLfloat rz = ux * ty - uy * tx;
 
-  GLfloat sx = uy * tz - uz * ty;
-  GLfloat sy = uz * tx - ux * tz;
-  GLfloat sz = ux * ty - uy * tx;
+  GLfloat sx = ty * rz - tz * ry;
+  GLfloat sy = tz * rx - tx * rz;
+  GLfloat sz = tx * ry - ty * rx;
 
   //それぞれのベクトルの長さを求める，ベクトルの長さが0ならreturn
-  GLfloat sLength = sqrtf(sx * sx + sy * sy + sz * sz);
-  if (sLength != 0)
+  GLfloat slength = sqrtf(sx * sx + sy * sy + sz * sz);
+  if (slength == 0.0)
   {
     return;
   }
+  GLfloat rlength = sqrtf(rx * rx + ry * ry + rz * rz);
+  GLfloat tlength = sqrtf(tx * tx + ty * ty + tz * tz);
+
+  //変換行列Rvに代入していく
+  Rv[0] = rx / rlength;
+  Rv[4] = ry / rlength;
+  Rv[8] = rz / rlength;
+
+
+  Rv[1] = sx / slength;
+  Rv[5] = sy / slength;
+  Rv[9] = sz / slength;
+
+  Rv[2] = tx / tlength;
+  Rv[6] = ty / tlength;
+  Rv[10] = tz / tlength;
+
+  Rv[3] = Rv[7] = Rv[11] = Rv[12] = Rv[13] = Rv[14] = 0.0;
+  Rv[15] = 1.0;
+
+  //mに結果を格納する
+  multiply(m, Rv, Tv);
+
+
 }
 
 //
